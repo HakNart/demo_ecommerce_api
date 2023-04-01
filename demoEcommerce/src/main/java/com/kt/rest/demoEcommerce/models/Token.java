@@ -2,6 +2,7 @@ package com.kt.rest.demoEcommerce.models;
 
 import jakarta.persistence.*;
 
+@Table
 @Entity
 public class Token {
     @Id

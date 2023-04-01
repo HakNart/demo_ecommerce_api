@@ -20,16 +20,28 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
     public User() {
     }
 
 
-    public User(Integer id, String email, String name, String password, Role role) {
+    public User(Integer id, String email, String name, String password, Role role, List<Token> tokens) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.role = role;
+        this.tokens = tokens;
+    }
+
+    public User(String email, String name, String password, Role role, List<Token> tokens) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.role = role;
+        this.tokens = tokens;
     }
 
     public static UserBuilder builder() {
@@ -71,18 +83,24 @@ public class User implements UserDetails {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
+    }
+
     public static class UserBuilder {
         private Integer id;
         private String email, name, password;
         private Role role;
+        private List<Token> tokens;
 
         private UserBuilder() {
         }
 
-        public UserBuilder id(Integer id) {
-            this.id = id;
-            return this;
-        }
 
         public UserBuilder email(String email) {
             this.email = email;
@@ -104,8 +122,13 @@ public class User implements UserDetails {
             return this;
         }
 
+        public UserBuilder tokens(List<Token> tokens) {
+            this.tokens = tokens;
+            return this;
+        }
+
         public User build() {
-            return new User(id, email, name, password, role);
+            return new User(email, name, password, role, tokens);
         }
     }
     @Override
