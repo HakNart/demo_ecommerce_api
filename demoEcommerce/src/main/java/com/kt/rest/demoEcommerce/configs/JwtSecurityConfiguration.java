@@ -1,42 +1,52 @@
-//package com.kt.rest.demoEcommerce.configs;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-//import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//import javax.sql.DataSource;
-//
-//@Configuration
-//public class JwtSecurityConfiguration {
-//
-//    @Bean
-//    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//        http.authorizeHttpRequests(
-//                auth -> {
-//                    auth.requestMatchers("/login").permitAll()
-//                            .anyRequest().authenticated();
-//                }
-//        );
-//        http.sessionManagement(
-//                session ->
-//                        session.sessionCreationPolicy(
-//                                SessionCreationPolicy.STATELESS
-//                        )
-//        );
-//        http.httpBasic();
-//        http.csrf().disable();
-//        http.headers().frameOptions().sameOrigin();
-////        http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-//
-//        return http.build();
-//    }
-//
+package com.kt.rest.demoEcommerce.configs;
+
+
+import com.kt.rest.demoEcommerce.configs.components.JwtAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+public class JwtSecurityConfiguration {
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthenticationProvider authenticationProvider;
+
+    public JwtSecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.authenticationProvider = authenticationProvider;
+    }
+
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+        http.authorizeHttpRequests(
+                auth -> {
+                    auth.requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/products/**").permitAll()
+                        .anyRequest().authenticated();
+                }
+        );
+        http.sessionManagement(
+                session ->
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+        );
+        http.authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.headers().frameOptions().sameOrigin();
+//        http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+
+        return http.build();
+    }
+
 //    @Bean
 //    public DataSource dataSource() {
 //        return new EmbeddedDatabaseBuilder()
@@ -44,6 +54,6 @@
 //                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
 //                .build();
 //    }
-//
-//
-//}
+
+
+}
