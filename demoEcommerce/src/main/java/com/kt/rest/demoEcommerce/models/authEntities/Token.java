@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models;
+package com.kt.rest.demoEcommerce.models.authEntities;
 
 import jakarta.persistence.*;
 

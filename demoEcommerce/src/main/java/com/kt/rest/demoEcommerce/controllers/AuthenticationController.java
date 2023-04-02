@@ -1,8 +1,8 @@
 package com.kt.rest.demoEcommerce.controllers;
 
-import com.kt.rest.demoEcommerce.models.AuthenticationRequest;
-import com.kt.rest.demoEcommerce.models.AuthenticationResponse;
-import com.kt.rest.demoEcommerce.models.RegisterRequest;
+import com.kt.rest.demoEcommerce.models.authEntities.AuthenticationRequest;
+import com.kt.rest.demoEcommerce.models.authEntities.AuthenticationResponse;
+import com.kt.rest.demoEcommerce.models.authEntities.RegisterRequest;
 import com.kt.rest.demoEcommerce.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

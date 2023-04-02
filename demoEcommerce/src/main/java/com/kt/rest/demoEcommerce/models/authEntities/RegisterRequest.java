@@ -1,5 +1,4 @@
-package com.kt.rest.demoEcommerce.models;
-
+package com.kt.rest.demoEcommerce.models.authEntities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private String token;
-    private Integer id;
-
+public class RegisterRequest {
+    private String name;
+    private String email;
+    private String password;
 }

@@ -1,7 +1,7 @@
 package com.kt.rest.demoEcommerce.services;
 
 import com.kt.rest.demoEcommerce.controllers.exeptions.EmailAlreadyExistsException;
-import com.kt.rest.demoEcommerce.models.*;
+import com.kt.rest.demoEcommerce.models.authEntities.*;
 import com.kt.rest.demoEcommerce.repository.TokenRepository;
 import com.kt.rest.demoEcommerce.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
