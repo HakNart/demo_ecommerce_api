@@ -20,11 +20,16 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts(@RequestParam(name = "name_like", required = false, defaultValue = "") String name) {
-        if (name.isEmpty()) {
-            return productRepository.findAll();
+    public List<Product> getAllProducts(@RequestParam(name = "name_like", required = false, defaultValue = "") String name,
+                                        @RequestParam(name = "featured", required = false, defaultValue = "") String featured) {
+        if (!name.isEmpty()) {
+            return productRepository.findAllByNameContainingIgnoreCase(name);
+        } else if (featured.equals("true")) {
+            return productRepository.findAllByFeaturedTrue();
         } else {
-            return productRepository.findAllByNameLike(name);
+            return productRepository.findAll();
         }
     }
+
+
 }
