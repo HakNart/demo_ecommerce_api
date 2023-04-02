@@ -1,6 +1,7 @@
-package com.kt.rest.demoEcommerce.models.shopEntities;
+package com.kt.rest.demoEcommerce.models.webdata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kt.rest.demoEcommerce.models.shopEntities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderDetailResponse {
+public class OrderHistoryDetailResponse {
     private Long id;
 
     @JsonProperty("cartList")

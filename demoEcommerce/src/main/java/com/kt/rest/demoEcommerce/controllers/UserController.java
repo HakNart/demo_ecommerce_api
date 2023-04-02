@@ -2,9 +2,9 @@ package com.kt.rest.demoEcommerce.controllers;
 
 import com.kt.rest.demoEcommerce.controllers.exeptions.UserNotFoundException;
 import com.kt.rest.demoEcommerce.models.authEntities.User;
-import com.kt.rest.demoEcommerce.models.authEntities.UserDetailResponse;
+import com.kt.rest.demoEcommerce.models.webdata.UserDetailResponse;
 import com.kt.rest.demoEcommerce.models.shopEntities.Order;
-import com.kt.rest.demoEcommerce.models.shopEntities.OrderDetailResponse;
+import com.kt.rest.demoEcommerce.models.webdata.OrderHistoryDetailResponse;
 import com.kt.rest.demoEcommerce.repository.OrderRepository;
 import com.kt.rest.demoEcommerce.repository.UserRepository;
 import com.kt.rest.demoEcommerce.services.BusinessService;
@@ -43,12 +43,12 @@ public class UserController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderDetailResponse>> getUserOrders(@RequestParam(value = "user.id", required =true) Long id) {
+    public ResponseEntity<List<OrderHistoryDetailResponse>> getUserOrders(@RequestParam(value = "user.id", required =true) Long id) {
         List<Order> orderList = orderRepository.findAllByUserId(id);
-        List<OrderDetailResponse> orderDetailResponseList = new ArrayList<>();
+        List<OrderHistoryDetailResponse> orderHistoryDetailResponseList = new ArrayList<>();
         orderList.forEach(order -> {
-            orderDetailResponseList.add(businessService.createOrderDetailResponse(order));
+            orderHistoryDetailResponseList.add(businessService.createOrderHistoryDetailResponse(order));
         });
-        return ResponseEntity.ok(orderDetailResponseList);
+        return ResponseEntity.ok(orderHistoryDetailResponseList);
     }
 }

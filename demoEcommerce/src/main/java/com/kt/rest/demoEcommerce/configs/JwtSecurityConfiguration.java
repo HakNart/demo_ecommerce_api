@@ -32,7 +32,7 @@ public class JwtSecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeHttpRequests(
+        http.cors().and().authorizeHttpRequests(
                 auth -> {
                     auth.requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/products/**").permitAll()

@@ -44,6 +44,13 @@ public class Order {
         this.orderItems = orderItems;
     }
 
+    public Order(User user, BigDecimal amountPaid, Integer quantity, Set<Product> orderItems) {
+        this.user = user;
+        this.amountPaid = amountPaid;
+        this.quantity = quantity;
+        this.orderItems = orderItems;
+    }
+
     public Long getId() {
         return id;
     }
