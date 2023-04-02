@@ -1,5 +1,6 @@
 package com.kt.rest.demoEcommerce.services;
 
+import com.kt.rest.demoEcommerce.controllers.exeptions.EmailAlreadyExistsException;
 import com.kt.rest.demoEcommerce.models.*;
 import com.kt.rest.demoEcommerce.repository.TokenRepository;
 import com.kt.rest.demoEcommerce.repository.UserRepository;
@@ -25,6 +26,9 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists: " + request.getEmail());
+        }
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
