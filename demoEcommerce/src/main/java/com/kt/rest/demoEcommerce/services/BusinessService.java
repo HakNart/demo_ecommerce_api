@@ -42,8 +42,8 @@ public class BusinessService {
 
     }
     public OrderDetailResponse createOrderDetailResponse(Order order, UserDetailResponse userDetailResponse) {
-        User user = userRepository.findById(order.getUser().getId())
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+//        User user = userRepository.findById(order.getUser().getId())
+//                .orElseThrow(() -> new UserNotFoundException("User not found"));
         return OrderDetailResponse.builder()
                 .id(order.getId())
                 .amountPaid(order.getAmountPaid())
