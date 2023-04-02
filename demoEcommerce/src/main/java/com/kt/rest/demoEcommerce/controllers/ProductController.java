@@ -1,14 +1,13 @@
 package com.kt.rest.demoEcommerce.controllers;
 
 
+import com.kt.rest.demoEcommerce.controllers.exeptions.ProductNotFoundException;
 import com.kt.rest.demoEcommerce.models.shopEntities.Product;
 import com.kt.rest.demoEcommerce.repository.ProductRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -29,6 +28,11 @@ public class ProductController {
         } else {
             return productRepository.findAll();
         }
+    }
+
+    @GetMapping(value = "/{id}")
+    public Optional<Product> getOneProduct(@PathVariable Long id) {
+        return Optional.ofNullable(productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id)));
     }
 
 
