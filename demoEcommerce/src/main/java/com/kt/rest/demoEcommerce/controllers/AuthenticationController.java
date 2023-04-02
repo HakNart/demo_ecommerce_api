@@ -1,22 +1,20 @@
 package com.kt.rest.demoEcommerce.controllers;
 
-import com.kt.rest.demoEcommerce.models.authEntities.AuthenticationRequest;
-import com.kt.rest.demoEcommerce.models.authEntities.AuthenticationResponse;
-import com.kt.rest.demoEcommerce.models.authEntities.RegisterRequest;
+import com.kt.rest.demoEcommerce.models.authEntities.*;
+import com.kt.rest.demoEcommerce.repository.UserRepository;
 import com.kt.rest.demoEcommerce.services.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
     private final AuthenticationService authService;
+    private final UserRepository userRepository;
 
-    public AuthenticationController(AuthenticationService authService) {
+    public AuthenticationController(AuthenticationService authService, UserRepository userRepository) {
         this.authService = authService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/register")
@@ -28,4 +26,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
+
 }
