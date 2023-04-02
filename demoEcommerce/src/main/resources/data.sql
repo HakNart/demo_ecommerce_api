@@ -98,10 +98,12 @@ VALUES
 insert into _order(id, amount_paid, quantity, user_id)
 values
     (1, 48, 2, 2),
-    (2, 29, 1, 1);
+    (2, 29, 1, 1),
+    (3, 19, 1, 2);
 
-insert into order_item(id, order_id, product_id)
+insert into order_product(order_id, product_id)
 values
-    (1, 1, 2),
-    (2, 1, 9),
-    (3, 2, 1);
+    (1, 2),
+    (1, 9),
+    (2, 1),
+    (3, 13);

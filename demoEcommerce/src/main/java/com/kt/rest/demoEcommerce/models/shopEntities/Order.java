@@ -1,11 +1,11 @@
 package com.kt.rest.demoEcommerce.models.shopEntities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kt.rest.demoEcommerce.models.authEntities.User;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "_order")
@@ -24,15 +24,19 @@ public class Order {
 
     private Integer quantity;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();
-
+//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<OrderItem> orderItems = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="order_product",
+            joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JsonProperty("cartList")
+    private Set<Product> orderItems;
     // Constructors, getters, and setters
 
     public Order() {
     }
 
-    public Order(Long id, User user, BigDecimal amountPaid, Integer quantity, List<OrderItem> orderItems) {
+    public Order(Long id, User user, BigDecimal amountPaid, Integer quantity, Set<Product> orderItems) {
         this.id = id;
         this.user = user;
         this.amountPaid = amountPaid;
@@ -72,11 +76,22 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public List<OrderItem> getOrderItems() {
+    public Set<Product> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
+    public void setOrderItems(Set<Product> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", amountPaid=" + amountPaid +
+                ", quantity=" + quantity +
+                ", orderItems=" + orderItems +
+                '}';
     }
 }

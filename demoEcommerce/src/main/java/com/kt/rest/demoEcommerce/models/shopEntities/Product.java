@@ -1,5 +1,6 @@
 package com.kt.rest.demoEcommerce.models.shopEntities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public class Product {
     private String overview;
 
     @Column(name = "long_description", length = 2048)
+    @JsonProperty("long_description")
     private String longDescription;
 
     private BigDecimal price;
@@ -23,14 +25,17 @@ public class Product {
     private String poster;
 
     @Column(name = "image_local")
+    @JsonProperty("image_local")
     private String imageLocal;
 
     private Integer rating;
 
     @Column(name = "in_stock")
+    @JsonProperty("in_stock")
     private Boolean inStock;
 
     @Column(name = "best_seller")
+    @JsonProperty("best_seller")
     private Boolean bestSeller;
 
     @Column(name = "featured")
@@ -139,5 +144,22 @@ public class Product {
 
     public void setFeatured(Boolean featured) {
         this.featured = featured;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", overview='" + overview + '\'' +
+                ", longDescription='" + longDescription + '\'' +
+                ", price=" + price +
+                ", poster='" + poster + '\'' +
+                ", imageLocal='" + imageLocal + '\'' +
+                ", rating=" + rating +
+                ", inStock=" + inStock +
+                ", bestSeller=" + bestSeller +
+                ", featured=" + featured +
+                '}';
     }
 }

@@ -1,10 +1,12 @@
 package com.kt.rest.demoEcommerce.models.authEntities;
 
+import com.kt.rest.demoEcommerce.models.shopEntities.Order;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,25 +25,30 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
+
     public User() {
     }
 
 
-    public User(Integer id, String email, String name, String password, Role role, List<Token> tokens) {
+    public User(Integer id, String email, String name, String password, Role role, List<Token> tokens, List<Order> orders) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.role = role;
         this.tokens = tokens;
+        this.orders = orders;
     }
-
-    public User(String email, String name, String password, Role role, List<Token> tokens) {
+    public User(String email, String name, String password, Role role, List<Token> tokens, List<Order> orders) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.role = role;
         this.tokens = tokens;
+        this.orders = orders;
     }
 
     public static UserBuilder builder() {
@@ -97,6 +104,7 @@ public class User implements UserDetails {
         private String email, name, password;
         private Role role;
         private List<Token> tokens;
+        private List<Order> orders;
 
         private UserBuilder() {
         }
@@ -126,9 +134,14 @@ public class User implements UserDetails {
             this.tokens = tokens;
             return this;
         }
+        public UserBuilder orders(List<Order> orders) {
+            this.orders = orders;
+            return this;
+        }
+
 
         public User build() {
-            return new User(email, name, password, role, tokens);
+            return new User(email, name, password, role, tokens, orders);
         }
     }
     @Override
