@@ -43,7 +43,7 @@ public class UserDataLoader implements CommandLineRunner {
                 .build();
         userRepository.save(admin);
         userRepository.save(testUser);
-//        ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("data.sql"));
-//        DatabasePopulatorUtils.execute(populator, dataSource);
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("data.sql"));
+        DatabasePopulatorUtils.execute(populator, dataSource);
     }
 }

@@ -25,5 +25,6 @@ RUN mvn -f /home/app/pom.xml clean package -Dmaven.test.skip
 #
 FROM openjdk:17-jdk-slim
 COPY --from=build /home/app/target/demoEcommerce-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
+ENV PORT=8080
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
