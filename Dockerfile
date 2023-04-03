@@ -8,7 +8,7 @@
 #
 # Package stage
 #
-FROM openjdk:11-jdk-slim
+FROM openjdk:17
 #COPY --from=build /target/demoEcommerce-0.0.1-SNAPSHOT.jar app.jar
 COPY target/demoEcommerce-0.0.1-SNAPSHOT.jar app.jar
 # ENV PORT=8080
