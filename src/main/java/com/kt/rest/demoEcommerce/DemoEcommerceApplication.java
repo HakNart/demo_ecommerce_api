@@ -22,7 +22,8 @@ public class DemoEcommerceApplication {
 					registry.addMapping("/**")
 							.allowedMethods("*")
 							.allowedOrigins("http://localhost:5173")
-							.allowedOrigins("http://127.0.0.1:5173");
+							.allowedOrigins("http://127.0.0.1:5173")
+							.allowedOrigins("https://haknart.github.io");
 				}
 			};
 		}
