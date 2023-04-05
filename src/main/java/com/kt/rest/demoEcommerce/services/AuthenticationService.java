@@ -48,8 +48,7 @@ public class AuthenticationService {
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder().token(jwtToken).id(savedUser.getId()).build();
     }
-    @Transactional
-    @Lock(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
+
     public AuthenticationResponse login(AuthenticationRequest request) {
         // Authenticate user
         authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
