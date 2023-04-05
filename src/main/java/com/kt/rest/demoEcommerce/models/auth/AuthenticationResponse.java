@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models.authEntities;
+package com.kt.rest.demoEcommerce.models.auth;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,7 +1,7 @@
 package com.kt.rest.demoEcommerce.models.shopEntities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kt.rest.demoEcommerce.models.authEntities.User;
+import com.kt.rest.demoEcommerce.models.auth.User;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

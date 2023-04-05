@@ -1,13 +1,21 @@
 package com.kt.rest.demoEcommerce.services;
 
 import com.kt.rest.demoEcommerce.controllers.exeptions.EmailAlreadyExistsException;
-import com.kt.rest.demoEcommerce.models.authEntities.*;
+import com.kt.rest.demoEcommerce.controllers.exeptions.UserNotFoundException;
+import com.kt.rest.demoEcommerce.models.auth.*;
 import com.kt.rest.demoEcommerce.repository.TokenRepository;
 import com.kt.rest.demoEcommerce.repository.UserRepository;
+import jakarta.persistence.LockModeType;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class AuthenticationService {
@@ -40,14 +48,15 @@ public class AuthenticationService {
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder().token(jwtToken).id(savedUser.getId()).build();
     }
-
+    @Transactional
+    @Lock(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
     public AuthenticationResponse login(AuthenticationRequest request) {
         // Authenticate user
         authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
                 request.getPassword()
         ));
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
 
         // Remove existing token of the user, the issue a new one
@@ -58,6 +67,16 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .id(user.getId())
                 .build();
+    }
+
+    @Async
+    public CompletableFuture<User> findUser(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            return CompletableFuture.completedFuture(user.get());
+        } else {
+            return CompletableFuture.failedFuture( new UserNotFoundException("User not found"));
+        }
     }
 
     // Remove all the tokens associated with the user

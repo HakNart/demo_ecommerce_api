@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models.webdata;
+package com.kt.rest.demoEcommerce.models.dataModels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kt.rest.demoEcommerce.models.shopEntities.Product;
@@ -11,12 +11,10 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class OrderHistoryDetailResponse {
-    private Long id;
-
+public class OrderCreateRequest {
     @JsonProperty("cartList")
     private Set<Product> orderItems;
     private Integer userId;
@@ -24,4 +22,5 @@ public class OrderHistoryDetailResponse {
     @JsonProperty("amount_paid")
     private BigDecimal amountPaid;
     private Integer quantity;
+
 }

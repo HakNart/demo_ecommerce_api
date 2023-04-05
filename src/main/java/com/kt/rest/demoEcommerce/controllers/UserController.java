@@ -1,10 +1,10 @@
 package com.kt.rest.demoEcommerce.controllers;
 
 import com.kt.rest.demoEcommerce.controllers.exeptions.UserNotFoundException;
-import com.kt.rest.demoEcommerce.models.authEntities.User;
-import com.kt.rest.demoEcommerce.models.webdata.UserDetailResponse;
+import com.kt.rest.demoEcommerce.models.auth.User;
+import com.kt.rest.demoEcommerce.models.dataModels.UserDetailResponse;
 import com.kt.rest.demoEcommerce.models.shopEntities.Order;
-import com.kt.rest.demoEcommerce.models.webdata.OrderHistoryDetailResponse;
+import com.kt.rest.demoEcommerce.models.dataModels.OrderHistoryDetailResponse;
 import com.kt.rest.demoEcommerce.repository.OrderRepository;
 import com.kt.rest.demoEcommerce.repository.UserRepository;
 import com.kt.rest.demoEcommerce.services.BusinessService;

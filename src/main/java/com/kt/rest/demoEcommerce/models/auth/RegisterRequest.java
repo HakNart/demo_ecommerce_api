@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models.authEntities;
+package com.kt.rest.demoEcommerce.models.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

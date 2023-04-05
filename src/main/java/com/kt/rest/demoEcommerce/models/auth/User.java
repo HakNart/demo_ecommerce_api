@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models.authEntities;
+package com.kt.rest.demoEcommerce.models.auth;
 
 import com.kt.rest.demoEcommerce.models.shopEntities.Order;
 import jakarta.persistence.*;
@@ -17,7 +17,9 @@ public class User implements UserDetails {
     @GeneratedValue
     private Integer id;
 
-    private String email, name, password;
+    @Column(unique = true)
+    private String email;
+    private String name, password;
 
     @Enumerated(EnumType.STRING)
     private Role role;

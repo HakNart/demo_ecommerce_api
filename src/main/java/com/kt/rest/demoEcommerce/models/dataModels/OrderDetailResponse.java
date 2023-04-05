@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models.webdata;
+package com.kt.rest.demoEcommerce.models.dataModels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

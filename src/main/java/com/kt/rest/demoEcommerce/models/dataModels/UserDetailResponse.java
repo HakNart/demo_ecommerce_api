@@ -1,4 +1,4 @@
-package com.kt.rest.demoEcommerce.models.webdata;
+package com.kt.rest.demoEcommerce.models.dataModels;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
