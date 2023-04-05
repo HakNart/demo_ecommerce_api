@@ -4,6 +4,7 @@ package com.kt.rest.demoEcommerce.controllers;
 import com.kt.rest.demoEcommerce.controllers.exeptions.ProductNotFoundException;
 import com.kt.rest.demoEcommerce.models.shopEntities.Product;
 import com.kt.rest.demoEcommerce.repository.ProductRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class ProductController {
     }
 
     @GetMapping
+
     public List<Product> getAllProducts(@RequestParam(name = "name_like", required = false, defaultValue = "") String name,
                                         @RequestParam(name = "featured", required = false, defaultValue = "") String featured) {
         if (!name.isEmpty()) {
